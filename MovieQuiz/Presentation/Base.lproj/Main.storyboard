@@ -35,51 +35,54 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xAq-0N-ny1" userLabel="No button">
-                                <rect key="frame" x="20" y="802" width="177" height="60"/>
-                                <color key="backgroundColor" name="YP White"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="AfB-QV-1Hw">
+                                <rect key="frame" x="20" y="802" width="374" height="60"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xAq-0N-ny1" userLabel="No button">
+                                        <rect key="frame" x="0.0" y="0.0" width="177" height="60"/>
+                                        <color key="backgroundColor" name="YP White"/>
+                                        <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <size key="titleShadowOffset" width="0.0" height="6"/>
+                                        <state key="normal" title="Нет">
+                                            <color key="titleColor" name="YP Black"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H4M-ul-LQ5" userLabel="Yes button">
+                                        <rect key="frame" x="197" y="0.0" width="177" height="60"/>
+                                        <color key="backgroundColor" name="YP White"/>
+                                        <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
+                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                        <state key="normal" title="Да">
+                                            <color key="titleColor" name="YP Black"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="15"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="Aj4-cl-cLO"/>
+                                    <constraint firstItem="H4M-ul-LQ5" firstAttribute="height" secondItem="xAq-0N-ny1" secondAttribute="height" id="IDX-Eq-hhP"/>
+                                    <constraint firstAttribute="height" constant="60" id="QUi-e5-QfK"/>
+                                    <constraint firstItem="H4M-ul-LQ5" firstAttribute="width" secondItem="xAq-0N-ny1" secondAttribute="width" id="WOE-0x-dpQ"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <size key="titleShadowOffset" width="0.0" height="6"/>
-                                <state key="normal" title="Нет">
-                                    <color key="titleColor" name="YP Black"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H4M-ul-LQ5" userLabel="Yes button">
-                                <rect key="frame" x="217" y="801" width="177" height="60"/>
-                                <color key="backgroundColor" name="YP White"/>
-                                <fontDescription key="fontDescription" name="YSDisplay-Medium" family="YS Display" pointSize="20"/>
-                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Да">
-                                    <color key="titleColor" name="YP Black"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </button>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" name="YP Black"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="H4M-ul-LQ5" secondAttribute="bottom" id="5GX-S2-cop"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="H4M-ul-LQ5" secondAttribute="trailing" constant="20" id="CTG-sE-PcY"/>
+                            <constraint firstItem="AfB-QV-1Hw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="BOu-3E-PcE"/>
                             <constraint firstItem="qa9-PO-qVI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="10" id="DD2-mx-ctZ"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="xAq-0N-ny1" secondAttribute="bottom" id="KJX-Y7-JHJ"/>
+                            <constraint firstItem="AfB-QV-1Hw" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="S1g-vj-MyQ"/>
                             <constraint firstItem="qa9-PO-qVI" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="TgB-xu-fa0"/>
-                            <constraint firstItem="H4M-ul-LQ5" firstAttribute="height" secondItem="xAq-0N-ny1" secondAttribute="height" id="UCp-tH-Prd"/>
-                            <constraint firstItem="H4M-ul-LQ5" firstAttribute="leading" secondItem="xAq-0N-ny1" secondAttribute="trailing" constant="20" id="c0u-Sl-LQl"/>
-                            <constraint firstItem="xAq-0N-ny1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="ckb-Qq-Z7N"/>
-                            <constraint firstItem="H4M-ul-LQ5" firstAttribute="width" secondItem="xAq-0N-ny1" secondAttribute="width" multiplier="1.00283" id="rN9-CC-Jvh"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="AfB-QV-1Hw" secondAttribute="bottom" id="c58-UI-3WO"/>
                         </constraints>
                     </view>
                     <connections>
