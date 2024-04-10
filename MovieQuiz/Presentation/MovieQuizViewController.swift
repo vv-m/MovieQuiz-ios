@@ -16,9 +16,7 @@ final class MovieQuizViewController:
         super.viewDidLoad()
         
         imageView.layer.masksToBounds = true // даём разрешение на рисование рамки
-        imageView.layer.borderWidth = 1 // толщина рамки
-        imageView.layer.borderColor = UIColor.white.cgColor // делаем рамку белой
-        imageView.layer.cornerRadius = 6 // радиус скругления углов рамки
+        imageView.layer.cornerRadius = 20 // радиус скругления углов рамки
         
         let currentQuestion = questions[currentQuestionIndex]
         
@@ -94,7 +92,6 @@ final class MovieQuizViewController:
     private func showAnswerResult(isCorrect: Bool) {
         // метод красит рамку
         imageView.layer.borderWidth = 8
-        imageView.layer.borderWidth = 1
         if isCorrect {
             correctAnswer += 1
             imageView.layer.borderColor = UIColor.green.cgColor // делаем рамку зеленой
@@ -102,7 +99,7 @@ final class MovieQuizViewController:
             imageView.layer.borderColor = UIColor.red.cgColor // делаем рамку красной
         }
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            self.imageView.layer.borderColor = UIColor.white.cgColor // делаем рамку белой
+            self.imageView.layer.borderWidth = 0 // убираем рамку
             self.showNextQuestionOrResults()
         }
     }
