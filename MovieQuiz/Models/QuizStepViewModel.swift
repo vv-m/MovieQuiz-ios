@@ -5,15 +5,10 @@
 //  Created by Vlad Mironov2 on 08.04.2024.
 //
 
-import Foundation
 import UIKit
 
-// вью модель для состояния "Вопрос показан"
 struct QuizStepViewModel {
-  // картинка с афишей фильма с типом UIImage
-  let image: UIImage
-  // вопрос о рейтинге квиза
-  let question: String
-  // строка с порядковым номером этого вопроса (ex. "1/10")
-  let questionNumber: String
+  let image: UIImage  // картинка с афишей фильма с типом UIImage
+  let question: String  // вопрос о рейтинге квиза
+  let questionNumber: String  // строка с порядковым номером этого вопроса (ex. "1/10")
 }
