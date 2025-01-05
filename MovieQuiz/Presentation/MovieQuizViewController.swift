@@ -1,28 +1,26 @@
 import UIKit
 
-final class MovieQuizViewController: UIViewController {
+final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var counterLabel: UILabel!
     private var currentQuestionIndex: Int = 0
     private var correctAnswers: Int = 0
     private var questionAmount: Int = 10
-    private var questionFactory: QuestionFactoryProtocol = QuestionFactory()
+    private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
 
     // MARK: - Lifecycle.
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let questionFactory = QuestionFactory()
+        questionFactory.delegate = self
+        self.questionFactory = questionFactory
         imageView.layer.masksToBounds = true // даём разрешение на рисование рамки
         imageView.layer.cornerRadius = 20 // радиус скругления углов рамки
 
-        if let firstQuestion = questionFactory.requestNextQuestion() {
-            currentQuestion = firstQuestion
-            let viewModel = convert(model: firstQuestion)
-            show(quiz: viewModel)
-        }
+        questionFactory.requestNextQuestion()
     }
 
     @IBAction private func noButtonClicked(_: Any) {
@@ -39,6 +37,17 @@ final class MovieQuizViewController: UIViewController {
         }
         showAnswerResult(isCorrect: currentQuestion.correctAnswer == true)
         self.currentQuestion = currentQuestion
+    }
+
+
+    // MARK: - QuestionFactoryDelegate
+    func didReceiveNextQuestion(question: QuizQuestion?) {
+        guard let question = question else { return }
+        currentQuestion = question
+        let viewModel = convert(model: question)
+        DispatchQueue.main.async { [weak self] in
+            self?.show(quiz: viewModel)
+        }
     }
 
     // MARK: - Метод конвертации.
@@ -92,13 +101,10 @@ final class MovieQuizViewController: UIViewController {
         let action = UIAlertAction(title: "Сыграть еще раз", style: .default) { _ in
             print("OK button is clicked!")
 
-            if let firstQuestion = self.questionFactory.requestNextQuestion() {
-                self.currentQuestionIndex = 0
-                self.correctAnswers = 0
-                self.currentQuestion = firstQuestion
-                let viewModel = self.convert(model: firstQuestion)
-                self.show(quiz: viewModel)
-            }
+            self.currentQuestionIndex = 0
+            self.correctAnswers = 0
+            self.questionFactory?.requestNextQuestion()
+
         }
         alert.addAction(action) // добавляем в алерт кнопку
         present(alert, animated: true, completion: nil) // показываем всплывающее окно
@@ -108,19 +114,13 @@ final class MovieQuizViewController: UIViewController {
 
     private func showNextQuestionOrResults() {
         let text = correctAnswers == questionAmount ?
-            "Поздравляем, вы ответили на 10 из 10!" :
-            "Вы ответили на \(correctAnswers) из 10, попробуйте ещё раз!"
-        print("currentQuestionIndex=", currentQuestionIndex)
-
+        "Поздравляем, вы ответили на 10 из 10!" :
+        "Вы ответили на \(correctAnswers) из 10, попробуйте ещё раз!"
         if currentQuestionIndex + 1 == questionAmount {
             showResultQuiz(text: text)
         }
 
         currentQuestionIndex += 1
-
-        if let nextQuestion = questionFactory.requestNextQuestion() {
-            let viewModel = convert(model: nextQuestion)
-            show(quiz: viewModel)
-        }
+        questionFactory?.requestNextQuestion()
     }
 }
