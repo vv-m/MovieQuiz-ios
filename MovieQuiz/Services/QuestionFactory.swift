@@ -14,16 +14,10 @@ class QuestionFactory: QuestionFactoryProtocol {
         QuizQuestion(image: "Tesla", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
         QuizQuestion(image: "Vivarium", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
     ]
-<<<<<<< HEAD
-    func requestNextQuestion() -> QuizQuestion? {
-        guard let index = (0 ..< question.count).randomElement() else {
-            return nil
-=======
     func requestNextQuestion() {
-        guard let index = (0..<question.count).randomElement() else {
+        guard let index = (0 ..< question.count).randomElement() else {
             delegate?.didReceiveNextQuestion(question: nil)
             return
->>>>>>> 5a0f5cc52e12a5a4d3b86169d06382f91df06fd3
         }
 
         let question = question[safe: index]

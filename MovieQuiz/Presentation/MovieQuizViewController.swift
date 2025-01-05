@@ -39,8 +39,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         self.currentQuestion = currentQuestion
     }
 
-
     // MARK: - QuestionFactoryDelegate
+
     func didReceiveNextQuestion(question: QuizQuestion?) {
         guard let question = question else { return }
         currentQuestion = question
@@ -104,7 +104,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             self.currentQuestionIndex = 0
             self.correctAnswers = 0
             self.questionFactory?.requestNextQuestion()
-
         }
         alert.addAction(action) // добавляем в алерт кнопку
         present(alert, animated: true, completion: nil) // показываем всплывающее окно
@@ -114,8 +113,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
 
     private func showNextQuestionOrResults() {
         let text = correctAnswers == questionAmount ?
-        "Поздравляем, вы ответили на 10 из 10!" :
-        "Вы ответили на \(correctAnswers) из 10, попробуйте ещё раз!"
+            "Поздравляем, вы ответили на 10 из 10!" :
+            "Вы ответили на \(correctAnswers) из 10, попробуйте ещё раз!"
         if currentQuestionIndex + 1 == questionAmount {
             showResultQuiz(text: text)
         }
