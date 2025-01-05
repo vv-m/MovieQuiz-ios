@@ -1,19 +1,21 @@
 import UIKit
 
-final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
+final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, MovieQuizViewControllerProtocol {
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var counterLabel: UILabel!
-    private var currentQuestionIndex: Int = 0
-    private var correctAnswers: Int = 0
-    private var questionAmount: Int = 10
-    private var questionFactory: QuestionFactoryProtocol?
+    var currentQuestionIndex: Int = 0
+    var correctAnswers: Int = 0
+    var questionAmount: Int = 3
+    var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
+    private var alertDelegate: AlertDelegate?
 
     // MARK: - Lifecycle.
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        alertDelegate = AlertPresenter(viewController: self)
         let questionFactory = QuestionFactory()
         questionFactory.delegate = self
         self.questionFactory = questionFactory
@@ -81,45 +83,34 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             imageView.layer.borderColor = UIColor.red.cgColor // делаем рамку красной
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
             self.imageView.layer.borderWidth = 0 // убираем рамку
             self.showNextQuestionOrResults()
         }
-    }
-
-    // MARK: - Резултат квиза
-
-    private func showResultQuiz(text: String?) {
-        let alert = UIAlertController(
-            title: text, // заголовок всплывающего окна
-            message: "Ваш результат: \(correctAnswers)/\(questionAmount)", // текст во всплывающем окне
-            preferredStyle: .alert
-        ) // preferredStyle может быть .alert или .actionSheet
-
-        // создаём для алерта кнопку с действием
-        // в замыкании пишем, что должно происходить при нажатии на кнопку
-        let action = UIAlertAction(title: "Сыграть еще раз", style: .default) { _ in
-            print("OK button is clicked!")
-
-            self.currentQuestionIndex = 0
-            self.correctAnswers = 0
-            self.questionFactory?.requestNextQuestion()
-        }
-        alert.addAction(action) // добавляем в алерт кнопку
-        present(alert, animated: true, completion: nil) // показываем всплывающее окно
     }
 
     // MARK: - Переход в один из сценариев.
 
     private func showNextQuestionOrResults() {
         let text = correctAnswers == questionAmount ?
-            "Поздравляем, вы ответили на 10 из 10!" :
-            "Вы ответили на \(correctAnswers) из 10, попробуйте ещё раз!"
-        if currentQuestionIndex + 1 == questionAmount {
-            showResultQuiz(text: text)
-        }
+            "Поздравляем, вы ответили на \(questionAmount) из \(questionAmount)!" :
+            "Вы ответили на \(correctAnswers) из \(questionAmount), попробуйте ещё раз!"
 
-        currentQuestionIndex += 1
-        questionFactory?.requestNextQuestion()
+        if currentQuestionIndex == questionAmount - 1 {
+            let alertData = AlertModel(
+                title: "Ваш результат: \(correctAnswers)/\(questionAmount)",
+                message: text,
+                buttonText: "Сыграть еще раз",
+                completion: { [weak self] in
+                    self?.currentQuestionIndex = 0
+                    self?.correctAnswers = 0
+                    self?.questionFactory?.requestNextQuestion()
+                }
+            )
+            alertDelegate?.showResultQuiz(alertData: alertData)
+        } else {
+            currentQuestionIndex += 1
+            questionFactory?.requestNextQuestion()
+        }
     }
 }
