@@ -12,7 +12,11 @@
 		87224E8D2D285E1300884641 /* QuizeQuestion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87224E8C2D285E1300884641 /* QuizeQuestion.swift */; };
 		87224E902D29315B00884641 /* QuestionFactoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87224E8F2D29315B00884641 /* QuestionFactoryProtocol.swift */; };
 		87224E922D2939FD00884641 /* QuestionFactoryDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87224E912D2939FD00884641 /* QuestionFactoryDelegate.swift */; };
+		87224E942D2A68E100884641 /* AlertPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87224E932D2A68E100884641 /* AlertPresenter.swift */; };
+		87224E962D2A698600884641 /* AlertPresenterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 87224E952D2A698600884641 /* AlertPresenterModel.swift */; };
+		87224E982D2A835800884641 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 87224E972D2A835600884641 /* .swiftlint.yml */; };
 		8737E44F2BC3FE920057E944 /* QuizStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8737E44E2BC3FE920057E944 /* QuizStepViewModel.swift */; };
+		87708D8A2D2A897E008B9F3D /* .swiftformat in Resources */ = {isa = PBXBuildFile; fileRef = 87708D892D2A897C008B9F3D /* .swiftformat */; };
 		897591132BBA999D002803F7 /* YS Display-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 897591112BBA999D002803F7 /* YS Display-Bold.ttf */; };
 		897591142BBA999D002803F7 /* YS Display-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 897591122BBA999D002803F7 /* YS Display-Medium.ttf */; };
 		AD1ABAB22831907B00B3E448 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD1ABAB12831907B00B3E448 /* AppDelegate.swift */; };
@@ -26,13 +30,33 @@
 		AD7AFA552836189F00399704 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7AFA542836189F00399704 /* Array+Extensions.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXBuildRule section */
+		87708D8B2D2A8CB8008B9F3D /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = pattern.proxy;
+			inputFiles = (
+			);
+			isEditable = 1;
+			name = "Swift Format";
+			outputFiles = (
+			);
+			runOncePerArchitecture = 0;
+			script = "echo \"HELLO\"\nif which swiftformat >/dev/null; then\n  swiftformat .\n  echo \"HELLO\"\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n  echo \"HELLO\"\n";
+		};
+/* End PBXBuildRule section */
+
 /* Begin PBXFileReference section */
 		87224E882D2854EF00884641 /* QuestionFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionFactory.swift; sourceTree = "<group>"; };
 		87224E8A2D285E0D00884641 /* QuizeResultsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizeResultsViewModel.swift; sourceTree = "<group>"; };
 		87224E8C2D285E1300884641 /* QuizeQuestion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizeQuestion.swift; sourceTree = "<group>"; };
 		87224E8F2D29315B00884641 /* QuestionFactoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionFactoryProtocol.swift; sourceTree = "<group>"; };
 		87224E912D2939FD00884641 /* QuestionFactoryDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionFactoryDelegate.swift; sourceTree = "<group>"; };
+		87224E932D2A68E100884641 /* AlertPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenter.swift; sourceTree = "<group>"; };
+		87224E952D2A698600884641 /* AlertPresenterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertPresenterModel.swift; sourceTree = "<group>"; };
+		87224E972D2A835600884641 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		8737E44E2BC3FE920057E944 /* QuizStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizStepViewModel.swift; sourceTree = "<group>"; };
+		87708D892D2A897C008B9F3D /* .swiftformat */ = {isa = PBXFileReference; lastKnownFileType = text; path = .swiftformat; sourceTree = "<group>"; };
 		897591112BBA999D002803F7 /* YS Display-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "YS Display-Bold.ttf"; path = "../../../MovieQuizFonts/YS Display-Bold.ttf"; sourceTree = "<group>"; };
 		897591122BBA999D002803F7 /* YS Display-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "YS Display-Medium.ttf"; path = "../../../MovieQuizFonts/YS Display-Medium.ttf"; sourceTree = "<group>"; };
 		AD1ABAAE2831907B00B3E448 /* MovieQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -65,6 +89,7 @@
 				8737E44E2BC3FE920057E944 /* QuizStepViewModel.swift */,
 				87224E8A2D285E0D00884641 /* QuizeResultsViewModel.swift */,
 				87224E8C2D285E1300884641 /* QuizeQuestion.swift */,
+				87224E952D2A698600884641 /* AlertPresenterModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -84,6 +109,7 @@
 			children = (
 				AD1ABAB52831907B00B3E448 /* MovieQuizViewController.swift */,
 				AD1ABAB72831907B00B3E448 /* Main.storyboard */,
+				87224E932D2A68E100884641 /* AlertPresenter.swift */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -119,6 +145,8 @@
 		AD1ABAB02831907B00B3E448 /* MovieQuiz */ = {
 			isa = PBXGroup;
 			children = (
+				87708D892D2A897C008B9F3D /* .swiftformat */,
+				87224E972D2A835600884641 /* .swiftlint.yml */,
 				AD1ABAB12831907B00B3E448 /* AppDelegate.swift */,
 				AD1ABAB32831907B00B3E448 /* SceneDelegate.swift */,
 				ADF0CF75283FDAA10075F54D /* Helpers */,
@@ -147,12 +175,15 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AD1ABAC22831907F00B3E448 /* Build configuration list for PBXNativeTarget "MovieQuiz" */;
 			buildPhases = (
+				87708D8E2D2A9312008B9F3D /* Swift Format */,
+				87708D8D2D2A91D3008B9F3D /* Swift Lint */,
 				AD1ABAAA2831907B00B3E448 /* Sources */,
 				AD1ABAAB2831907B00B3E448 /* Frameworks */,
 				AD1ABAAC2831907B00B3E448 /* Resources */,
 				892F0CF42BC69D4F0046AA5E /* ShellScript */,
 			);
 			buildRules = (
+				87708D8B2D2A8CB8008B9F3D /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -200,7 +231,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87224E982D2A835800884641 /* .swiftlint.yml in Resources */,
 				AD1ABABE2831907F00B3E448 /* LaunchScreen.storyboard in Resources */,
+				87708D8A2D2A897E008B9F3D /* .swiftformat in Resources */,
 				AD1ABABB2831907F00B3E448 /* Assets.xcassets in Resources */,
 				AD1ABAB92831907B00B3E448 /* Main.storyboard in Resources */,
 				897591132BBA999D002803F7 /* YS Display-Bold.ttf in Resources */,
@@ -211,6 +244,42 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		87708D8D2D2A91D3008B9F3D /* Swift Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Swift Lint";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"swiftlint is runing\"\nif [[ \"$(uname -m)\" == arm64 ]]\nthen\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif command -v swiftlint >/dev/null 2>&1\nthen\n    swiftlint\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n";
+		};
+		87708D8E2D2A9312008B9F3D /* Swift Format */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Swift Format";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "echo \"SwiftFormat is running\"\nif [[ \"$(uname -m)\" == arm64 ]]; then\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif which swiftformat > /dev/null; then\n  swiftformat .\nelse\n  echo \"warning: SwiftFormat not installed, download from https://github.com/nicklockwood/SwiftFormat\"\nfi\n";
+		};
 		892F0CF42BC69D4F0046AA5E /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -242,7 +311,9 @@
 				87224E922D2939FD00884641 /* QuestionFactoryDelegate.swift in Sources */,
 				87224E892D2854FA00884641 /* QuestionFactory.swift in Sources */,
 				AD1ABAB62831907B00B3E448 /* MovieQuizViewController.swift in Sources */,
+				87224E962D2A698600884641 /* AlertPresenterModel.swift in Sources */,
 				AD77F5742857F8810062FB14 /* Date+Extensions.swift in Sources */,
+				87224E942D2A68E100884641 /* AlertPresenter.swift in Sources */,
 				AD1ABAB22831907B00B3E448 /* AppDelegate.swift in Sources */,
 				87224E8D2D285E1300884641 /* QuizeQuestion.swift in Sources */,
 				AD1ABAB42831907B00B3E448 /* SceneDelegate.swift in Sources */,

@@ -1,0 +1,5 @@
+--indent 4       # отступ в 4 пробела
+--indentcase true    # отступ для case в switch
+--self remove    # удалять self где возможно
+--importgrouping alphabetized  # сортировка импортов
+--trimwhitespace always    # удаление лишних пробелов

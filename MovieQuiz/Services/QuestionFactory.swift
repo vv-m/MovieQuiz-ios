@@ -1,10 +1,3 @@
-//
-//  Untitled.swift
-//  MovieQuiz
-//
-//  Created by Vlad Mironov2 on 03.01.2025.
-//
-
 import Foundation
 
 class QuestionFactory: QuestionFactoryProtocol {
@@ -16,12 +9,12 @@ class QuestionFactory: QuestionFactoryProtocol {
         QuizQuestion(image: "Deadpool", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
         QuizQuestion(image: "The Green Knight", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
         QuizQuestion(image: "Old", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
-        QuizQuestion(image: "The Ice Age Adventures of Buck Wild", text: "Рейтинг этого фильма больше чем 6?",correctAnswer: true),
+        QuizQuestion(image: "The Ice Age Adventures of Buck Wild", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
         QuizQuestion(image: "Tesla", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
-        QuizQuestion(image: "Vivarium", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true)
+        QuizQuestion(image: "Vivarium", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
     ]
     func requestNextQuestion() -> QuizQuestion? {
-        guard let index = (0..<question.count).randomElement() else {
+        guard let index = (0 ..< question.count).randomElement() else {
             return nil
         }
         return question[safe: index]
