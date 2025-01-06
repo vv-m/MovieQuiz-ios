@@ -18,8 +18,7 @@ class AlertPresenter: AlertDelegate {
         let alert = UIAlertController(
             title: alertData.title, // заголовок всплывающего окна
             message: alertData.message, // текст во всплывающем окне
-            preferredStyle: .alert
-        )
+            preferredStyle: .alert)
 
         let action = UIAlertAction(title: alertData.buttonText, style: .default) { _ in
             print("OK button is clicked!")

@@ -14,6 +14,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     // MARK: - Lifecycle.
 
     override func viewDidLoad() {
+        print(NSHomeDirectory())
         super.viewDidLoad()
         alertDelegate = AlertPresenter(viewController: self)
         let questionFactory = QuestionFactory()
@@ -26,7 +27,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     }
 
     @IBAction private func noButtonClicked(_: Any) {
-        guard let currentQuestion = currentQuestion else {
+        guard let currentQuestion else {
             return
         }
         showAnswerResult(isCorrect: currentQuestion.correctAnswer == false)
@@ -34,7 +35,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     }
 
     @IBAction private func yesButtonClicked(_: Any) {
-        guard let currentQuestion = currentQuestion else {
+        guard let currentQuestion else {
             return
         }
         showAnswerResult(isCorrect: currentQuestion.correctAnswer == true)
@@ -44,7 +45,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     // MARK: - QuestionFactoryDelegate
 
     func didReceiveNextQuestion(question: QuizQuestion?) {
-        guard let question = question else { return }
+        guard let question else { return }
         currentQuestion = question
         let viewModel = convert(model: question)
         DispatchQueue.main.async { [weak self] in
@@ -56,9 +57,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
 
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         let questionNumber = "\(currentQuestionIndex + 1)/\(questionAmount)"
-        return QuizStepViewModel(image: UIImage(named: model.image) ?? UIImage(),
-                                 question: model.text,
-                                 questionNumber: questionNumber)
+        return QuizStepViewModel(
+            image: UIImage(named: model.image) ?? UIImage(),
+            question: model.text,
+            questionNumber: questionNumber)
     }
 
     // MARK: - Метод вывода на экран вопроса.
@@ -105,8 +107,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
                     self?.currentQuestionIndex = 0
                     self?.correctAnswers = 0
                     self?.questionFactory?.requestNextQuestion()
-                }
-            )
+                })
             alertDelegate?.showResultQuiz(alertData: alertData)
         } else {
             currentQuestionIndex += 1
