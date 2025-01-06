@@ -27,17 +27,14 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
     }
 
     @IBAction private func noButtonClicked(_: Any) {
-        guard let currentQuestion else {
-            return
-        }
+        guard let currentQuestion else { return }
         showAnswerResult(isCorrect: currentQuestion.correctAnswer == false)
         self.currentQuestion = currentQuestion
     }
 
     @IBAction private func yesButtonClicked(_: Any) {
-        guard let currentQuestion else {
-            return
-        }
+        guard let currentQuestion else { return }
+
         showAnswerResult(isCorrect: currentQuestion.correctAnswer == true)
         self.currentQuestion = currentQuestion
     }
@@ -57,10 +54,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
 
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         let questionNumber = "\(currentQuestionIndex + 1)/\(questionAmount)"
+
         return QuizStepViewModel(
             image: UIImage(named: model.image) ?? UIImage(),
             question: model.text,
-            questionNumber: questionNumber)
+            questionNumber: questionNumber
+        )
     }
 
     // MARK: - Метод вывода на экран вопроса.
@@ -107,7 +106,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate, 
                     self?.currentQuestionIndex = 0
                     self?.correctAnswers = 0
                     self?.questionFactory?.requestNextQuestion()
-                })
+                }
+            )
             alertDelegate?.showResultQuiz(alertData: alertData)
         } else {
             currentQuestionIndex += 1

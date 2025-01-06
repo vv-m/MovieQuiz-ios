@@ -13,12 +13,14 @@ class QuestionFactory: QuestionFactoryProtocol {
         QuizQuestion(
             image: "The Ice Age Adventures of Buck Wild",
             text: "Рейтинг этого фильма больше чем 6?",
-            correctAnswer: true),
+            correctAnswer: true
+        ),
         QuizQuestion(image: "Tesla", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
         QuizQuestion(image: "Vivarium", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
     ]
     func requestNextQuestion() {
-        guard let index = (0 ..< question.count).randomElement() else {
+        guard let index = (0 ..< question.count).randomElement()
+        else {
             delegate?.didReceiveNextQuestion(question: nil)
             return
         }

@@ -1,36 +1,31 @@
-# Настройки Swift Format
-
-# Указывает версию Swift для форматирования
+# Версия Swift
 --swiftversion 6.0
 
-# Настройки отступов и пробелов
---indent 4                    # Базовый отступ - 4 пробела
---indentcase true            # Отступы для case в switch
---tabwidth 4                 # Ширина табуляции - 4 пробела
---trimwhitespace always      # Удаление лишних пробелов
---indentstrings true         # Отступы в многострочных строках
---smarttabs enabled          # "Умные" отступы
---xcodeindentation enabled   # Совместимость с Xcode
+# Отступы и форматирование кода
+--indent 4                     # Отступ в 4 пробела
+--xcodeindentation enabled    # Совместимость с Xcode
+--tabwidth 4                  # Ширина табуляции
+--maxwidth 140                # Максимальная ширина строки
+--smarttabs enabled          # Умные отступы
 
-# Настройки переноса строк
---maxwidth 200               # Максимальная длина строки
-#--wraparguments before-first # Перенос аргументов
-#--wrapparameters after-first # Перенос параметров
-#--wrapconditions before-first # Перенос условий
+# Правила переноса
+--wrapcollections before-first    # Перенос коллекций
+--wraparguments before-first      # Перенос аргументов
+--wrapparameters before-first     # Перенос параметров
+--closingparen balanced           # Расположение закрывающей скобки
 
-# Настройки форматирования кода
-#--allman false               # Стиль скобок не Allman
---closingparen same-line     # Закрывающая скобка на той же строке
---commas always              # Запятые всегда
-#--semicolons never           # Без точек с запятой
+# Пробелы
+--trimwhitespace always           # Удаление лишних пробелов
+--ranges spaced                   # Пробелы в диапазонах
+--operatorfunc spaced            # Пробелы вокруг операторов
 
-# Пробелы в операторах
---operatorfunc spaced        # Пробелы вокруг операторов
---ranges spaced              # Пробелы в диапазонах
+# Базовые правила
+--allman false                   # Скобки на той же строке
+--indent 4                       # Базовый отступ
+--enable elseOnSameLine          # else на той же строке
+--enable spaceAroundBraces       # Пробелы вокруг скобок
+--enable spaceInsideBraces       # Пробелы внутри скобок
 
 # Организация кода
---importgrouping alphabetized # Сортировка импортов
---header strip               # Удаление заголовков файлов
-
-# MARK комментарии
-#--markextensions always      # MARK для расширений
+--importgrouping alphabetized    # Сортировка импортов
+--header strip                   # Удаление заголовков
