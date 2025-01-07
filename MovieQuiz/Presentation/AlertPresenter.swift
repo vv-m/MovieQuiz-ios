@@ -1,16 +1,10 @@
 import Foundation
 import UIKit
 
-protocol MovieQuizViewControllerProtocol: UIViewController {
-    var currentQuestionIndex: Int { get set }
-    var correctAnswers: Int { get set }
-    var questionFactory: QuestionFactoryProtocol? { get }
-}
-
 class AlertPresenter: AlertDelegate {
-    weak var viewController: MovieQuizViewControllerProtocol?
+    weak var viewController: UIViewController?
 
-    init(viewController: MovieQuizViewControllerProtocol) {
+    init(viewController: UIViewController) {
         self.viewController = viewController
     }
 
