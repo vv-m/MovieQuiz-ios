@@ -13,7 +13,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private var statisticService: StatisticService = .init()
 
     // MARK: - Lifecycle.
-
     override func viewDidLoad() {
         super.viewDidLoad()
 //        statisticService.clearAll()
