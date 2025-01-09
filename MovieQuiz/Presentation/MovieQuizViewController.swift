@@ -1,8 +1,8 @@
 import UIKit
 
 final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
-    @IBOutlet weak var noButton: UIButton!
-    @IBOutlet weak var yesButton: UIButton!
+    @IBOutlet private var noButton: UIButton!
+    @IBOutlet private var yesButton: UIButton!
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var counterLabel: UILabel!
@@ -15,6 +15,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private var statisticService: StatisticServiceProtocol = StatisticService()
 
     // MARK: - Lifecycle.
+
     override func viewDidLoad() {
         super.viewDidLoad()
         statisticService.clearAll()
@@ -41,12 +42,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         showAnswerResult(isCorrect: currentQuestion.correctAnswer == true)
         self.currentQuestion = currentQuestion
     }
-    
-    func setButton(state: Bool) {
+
+    private func setButton(state: Bool) {
         noButton.isEnabled = state
         yesButton.isEnabled = state
     }
-    
+
     // MARK: - QuestionFactoryDelegate
 
     func didReceiveNextQuestion(question: QuizQuestion?) {

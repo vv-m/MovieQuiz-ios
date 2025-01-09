@@ -1,3 +1,3 @@
-struct Constants {
+enum Constants {
     static let amountQuestion: Int = 10
 }
