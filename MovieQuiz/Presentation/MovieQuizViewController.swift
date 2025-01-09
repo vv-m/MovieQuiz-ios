@@ -32,14 +32,14 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBAction private func noButtonClicked(_: Any) {
         setButton(state: false)
         guard let currentQuestion else { return }
-        showAnswerResult(isCorrect: currentQuestion.correctAnswer == false)
+        showAnswerResult(isCorrect: !currentQuestion.correctAnswer)
         self.currentQuestion = currentQuestion
     }
 
     @IBAction private func yesButtonClicked(_: Any) {
         setButton(state: false)
         guard let currentQuestion else { return }
-        showAnswerResult(isCorrect: currentQuestion.correctAnswer == true)
+        showAnswerResult(isCorrect: currentQuestion.correctAnswer)
         self.currentQuestion = currentQuestion
     }
 
@@ -94,7 +94,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             imageView.layer.borderColor = UIColor.ypRed.cgColor // делаем рамку красной
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.imageView.layer.borderWidth = 0 // убираем рамку
             self.showNextQuestionOrResults()
         }
@@ -106,7 +106,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         if currentQuestionIndex == questionAmount - 1 {
             let gameResult = GameResult(correct: correctAnswers, total: questionAmount, date: Date())
             statisticService.store(gameResult)
-//            statisticService.getAll()
             let text =
                 """
                 Ваш результат \(correctAnswers)/\(questionAmount)
