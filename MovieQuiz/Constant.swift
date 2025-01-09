@@ -1,1 +1,3 @@
-let qtyQuestion: Int = 6
+struct Constants {
+    static let amountQuestion: Int = 10
+}

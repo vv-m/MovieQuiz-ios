@@ -6,11 +6,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBOutlet private var counterLabel: UILabel!
     var currentQuestionIndex: Int = 0
     var correctAnswers: Int = 0
-    var questionAmount: Int = qtyQuestion
+    var questionAmount: Int = Constants.amountQuestion
     var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
     private var alertDelegate: AlertDelegate?
-    private var statisticService: StatisticService = .init()
+    private var statisticService: StatisticServiceProtocol = StatisticService()
 
     // MARK: - Lifecycle.
     override func viewDidLoad() {
@@ -78,10 +78,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         if isCorrect {
             print("Ответ правильный")
             correctAnswers += 1
-            imageView.layer.borderColor = UIColor.green.cgColor // делаем рамку зеленой
+            imageView.layer.borderColor = UIColor.ypGreen.cgColor // делаем рамку зеленой
         } else {
             print("Ответ НЕправильный")
-            imageView.layer.borderColor = UIColor.red.cgColor // делаем рамку красной
+            imageView.layer.borderColor = UIColor.ypRed.cgColor // делаем рамку красной
         }
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
@@ -96,7 +96,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         if currentQuestionIndex == questionAmount - 1 {
             let gameResult = GameResult(correct: correctAnswers, total: questionAmount, date: Date())
             statisticService.store(gameResult)
-            statisticService.getAll()
+//            statisticService.getAll()
             let text =
                 """
                 Ваш результат \(correctAnswers)/\(questionAmount)

@@ -3,6 +3,7 @@ disabled_rules:
   - trailing_comma  # Отключаем запятые в конце для последнего элемента
   - function_body_length  # Отключаем ограничение на длину тела функции
   - opening_brace
+  - trailing_whitespace
 
 opt_in_rules:
   - empty_count  # Использовать isEmpty вместо count == 0
