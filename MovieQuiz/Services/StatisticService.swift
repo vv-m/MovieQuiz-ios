@@ -12,7 +12,7 @@ final class StatisticService: StatisticServiceProtocol {
         case bestGameTotal
         
         case totalCorrectAnswers
-        case totalAnswsers
+        case totalAnswers
         case totalAccuracy
     }
     
@@ -49,9 +49,9 @@ final class StatisticService: StatisticServiceProtocol {
                 print("Пытаюсь получить totalAccuracy")
                 let totalCorrectAnswers = Double(storage.integer(forKey: Keys.totalCorrectAnswers.rawValue))
                 
-                let totalAnwsers = Double(storage.integer(forKey: Keys.totalAnswsers.rawValue))
+                let totalAnswers = Double(storage.integer(forKey: Keys.totalAnswers.rawValue))
                 //            return Double(totalCorrectAnswers / qtyQuestion * gamesCount * 100)
-                let accuracy = Double(totalCorrectAnswers / totalAnwsers * 100)
+                let accuracy = Double(totalCorrectAnswers / totalAnswers * 100)
                 
                 return accuracy
             }
@@ -66,13 +66,13 @@ final class StatisticService: StatisticServiceProtocol {
     func store(_ gameResult: GameResult) {
         gamesCount += 1
         let currentTotalCorrectAnswers = storage.integer(forKey: Keys.totalCorrectAnswers.rawValue)
-        let currentTotalAnwsers = storage.integer(forKey: Keys.totalAnswsers.rawValue)
+        let currentTotalAnswers = storage.integer(forKey: Keys.totalAnswers.rawValue)
         
-        let updatedtTotalCorrectAnswers: Int = gameResult.correct + currentTotalCorrectAnswers
-        let updatedtTotalAnwsers: Int = gameResult.total + currentTotalAnwsers
+        let updatedTotalCorrectAnswers: Int = gameResult.correct + currentTotalCorrectAnswers
+        let updatedTotalAnswers: Int = gameResult.total + currentTotalAnswers
         
-        storage.set(updatedtTotalCorrectAnswers, forKey: Keys.totalCorrectAnswers.rawValue)
-        storage.set(updatedtTotalAnwsers, forKey: Keys.totalAnswsers.rawValue)
+        storage.set(updatedTotalCorrectAnswers, forKey: Keys.totalCorrectAnswers.rawValue)
+        storage.set(updatedTotalAnswers, forKey: Keys.totalAnswers.rawValue)
         
         if gameResult.isBetterThen(bestGame) {
             print("Новый рекорд 🎉")
@@ -86,7 +86,7 @@ final class StatisticService: StatisticServiceProtocol {
         print("Лучшая игра: \(bestGame.correct)/\(bestGame.total) (\(bestGame.date.dateTimeString))")
         print("Общая точность: \(String(format: "%.1f", totalAccuracy))%")
         print("Всего правильных ответов: \(storage.integer(forKey: Keys.totalCorrectAnswers.rawValue))")
-        print("Всего вопросов: \(storage.integer(forKey: Keys.totalAnswsers.rawValue))")
+        print("Всего вопросов: \(storage.integer(forKey: Keys.totalAnswers.rawValue))")
         print("----------------")
     }
     
@@ -97,13 +97,13 @@ final class StatisticService: StatisticServiceProtocol {
         totalAccuracy = 0
         
         storage.set(0, forKey: Keys.totalCorrectAnswers.rawValue)
-        storage.set(0, forKey: Keys.totalAnswsers.rawValue)
+        storage.set(0, forKey: Keys.totalAnswers.rawValue)
         print("--- ⚠️ Статистика сброшена ⚠️ ---")
         print("Количество игр: \(gamesCount)")
         print("Лучшая игра: \(bestGame.correct)/\(bestGame.total) (\(bestGame.date.dateTimeString))")
         print("Общая точность: \(String(format: "%.1f", totalAccuracy))%")
         print("Всего правильных ответов: \(storage.integer(forKey: Keys.totalCorrectAnswers.rawValue))")
-        print("Всего вопросов: \(storage.integer(forKey: Keys.totalAnswsers.rawValue))")
+        print("Всего вопросов: \(storage.integer(forKey: Keys.totalAnswers.rawValue))")
         print("----------------")
     }
 }

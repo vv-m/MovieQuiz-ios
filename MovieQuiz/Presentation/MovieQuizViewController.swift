@@ -1,6 +1,8 @@
 import UIKit
 
 final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
+    @IBOutlet weak var noButton: UIButton!
+    @IBOutlet weak var yesButton: UIButton!
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var counterLabel: UILabel!
@@ -15,7 +17,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     // MARK: - Lifecycle.
     override func viewDidLoad() {
         super.viewDidLoad()
-//        statisticService.clearAll()
+        statisticService.clearAll()
         alertDelegate = AlertPresenter(viewController: self)
         let questionFactory = QuestionFactory()
         questionFactory.delegate = self
@@ -27,18 +29,24 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
 
     @IBAction private func noButtonClicked(_: Any) {
+        setButton(state: false)
         guard let currentQuestion else { return }
         showAnswerResult(isCorrect: currentQuestion.correctAnswer == false)
         self.currentQuestion = currentQuestion
     }
 
     @IBAction private func yesButtonClicked(_: Any) {
+        setButton(state: false)
         guard let currentQuestion else { return }
-
         showAnswerResult(isCorrect: currentQuestion.correctAnswer == true)
         self.currentQuestion = currentQuestion
     }
-
+    
+    func setButton(state: Bool) {
+        noButton.isEnabled = state
+        yesButton.isEnabled = state
+    }
+    
     // MARK: - QuestionFactoryDelegate
 
     func didReceiveNextQuestion(question: QuizQuestion?) {
@@ -47,6 +55,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         let viewModel = convert(model: question)
         DispatchQueue.main.async { [weak self] in
             self?.show(quiz: viewModel)
+            self?.setButton(state: true)
         }
     }
 

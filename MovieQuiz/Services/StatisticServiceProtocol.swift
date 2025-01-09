@@ -4,4 +4,6 @@ protocol StatisticServiceProtocol {
     var totalAccuracy: Double { get }
 
     func store(_ gameResult: GameResult)
+    func clearAll()
+    func getAll()
 }
