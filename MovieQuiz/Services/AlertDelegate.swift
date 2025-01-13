@@ -1,5 +1,5 @@
 import Foundation
 
 protocol AlertDelegate: AnyObject {
-    func showResultQuiz(alertData: AlertModel)
+    func show(alertData: AlertModel)
 }

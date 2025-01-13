@@ -7,7 +7,7 @@ final class AlertPresenter: AlertDelegate {
         self.viewController = viewController
     }
 
-    func showResultQuiz(alertData: AlertModel) {
+    func show(alertData: AlertModel) {
         let alert = UIAlertController(
             title: alertData.title, // заголовок всплывающего окна
             message: alertData.message, // текст во всплывающем окне
