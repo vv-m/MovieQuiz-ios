@@ -1,6 +1,7 @@
 import UIKit
 
 final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
+    
     @IBOutlet private var noButton: UIButton!
     @IBOutlet private var yesButton: UIButton!
     @IBOutlet private var textLabel: UILabel!
@@ -19,16 +20,18 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        statisticService.clearAll()
-        alertPresenter = AlertPresenter(viewController: self)
-        let questionFactory = QuestionFactory()
-        questionFactory.delegate = self
-        self.questionFactory = questionFactory
-        imageView.layer.masksToBounds = true // даём разрешение на рисование рамки
-        imageView.layer.cornerRadius = 20 // радиус скругления углов рамки
         
-        questionFactory.requestNextQuestion()
+        imageView.layer.cornerRadius = 20 // радиус скругления углов рамки
+        imageView.layer.masksToBounds = true // даём разрешение на рисование рамки
+        
+        questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
+        alertPresenter = AlertPresenter(viewController: self)
+        
+        showLoadingIndicator()
+        questionFactory?.loadData()
     }
+    
+    // MARK: - Нажатие на кнопки.
     
     @IBAction private func noButtonClicked(_: Any) {
         setButton(state: false)
@@ -43,6 +46,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         showAnswerResult(isCorrect: currentQuestion.correctAnswer)
         self.currentQuestion = currentQuestion
     }
+    
+    // MARK: - Включение и отключение кнопок "да" и "нет".
     
     private func setButton(state: Bool) {
         noButton.isEnabled = state
@@ -173,4 +178,5 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     func didFailToLoadData(with error: Error) {
         showNetworkError(message: error.localizedDescription)
     }
+    
 }
