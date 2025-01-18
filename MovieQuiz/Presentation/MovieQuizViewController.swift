@@ -21,6 +21,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         activityIndicator.hidesWhenStopped = true
+        activityIndicator.transform = CGAffineTransform(scaleX: 3.0, y: 3.0) // увеличить в 3 раза
         imageView.layer.cornerRadius = 20 // радиус скругления углов рамки
         imageView.layer.masksToBounds = true // даём разрешение на рисование рамки
         
@@ -139,14 +140,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     // MARK: - Показ индикатора загрузки
     
     func showLoadingIndicator() {
-        print("Показываю индиктор загрузки")
         activityIndicator.startAnimating()
     }
     
     // MARK: - Показ индикатора загрузки
     
     func hideLoadingIndicator() {
-        print("Скрываю индиктор загрузки")
         activityIndicator.stopAnimating()
     }
     
