@@ -91,10 +91,7 @@ final class StatisticService: StatisticServiceProtocol {
     }
 
     func clearAll() {
-        gamesCount = 0
-        bestGame.correct = 0
-        bestGame.total = 0
-        totalAccuracy = 0
+        bestGame = GameResult(correct: 0, total: 0, date: Date())
 
         storage.set(0, forKey: Keys.totalCorrectAnswers.rawValue)
         storage.set(0, forKey: Keys.totalAnswers.rawValue)

@@ -1,7 +1,7 @@
 import UIKit
 
 final class AlertPresenter: AlertDelegate {
-    weak var viewController: UIViewController?
+    private weak var viewController: UIViewController?
 
     init(viewController: UIViewController) {
         self.viewController = viewController
@@ -15,7 +15,6 @@ final class AlertPresenter: AlertDelegate {
         )
 
         let action = UIAlertAction(title: alertData.buttonText, style: .default) { _ in
-            print("OK button is clicked!")
             alertData.completion()
         }
 

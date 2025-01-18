@@ -7,11 +7,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBOutlet private var textLabel: UILabel!
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var counterLabel: UILabel!
-    @IBOutlet var activityIndicator: UIActivityIndicatorView!
-    var currentQuestionIndex: Int = 0
-    var correctAnswers: Int = 0
-    var questionAmount: Int = Constants.amountQuestion
-    var questionFactory: QuestionFactoryProtocol?
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+    private var currentQuestionIndex: Int = 0
+    private var correctAnswers: Int = 0
+    private var questionAmount: Int = Constants.amountQuestion
+    private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
     private var alertPresenter: AlertDelegate?
     private var statisticService: StatisticServiceProtocol = StatisticService()
@@ -20,13 +20,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        activityIndicator.hidesWhenStopped = true
         imageView.layer.cornerRadius = 20 // радиус скругления углов рамки
         imageView.layer.masksToBounds = true // даём разрешение на рисование рамки
         
         questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
         alertPresenter = AlertPresenter(viewController: self)
-        
         showLoadingIndicator()
         questionFactory?.loadData()
     }
@@ -90,11 +89,9 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         imageView.layer.borderWidth = 8 // метод красит рамку
         
         if isCorrect {
-            print("Ответ правильный")
             correctAnswers += 1
             imageView.layer.borderColor = UIColor.ypGreen.cgColor // делаем рамку зеленой
         } else {
-            print("Ответ НЕправильный")
             imageView.layer.borderColor = UIColor.ypRed.cgColor // делаем рамку красной
         }
         
@@ -141,15 +138,16 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     // MARK: - Показ индикатора загрузки
     
-    private func showLoadingIndicator() {
-        activityIndicator.isHidden = false
+    func showLoadingIndicator() {
+        print("Показываю индиктор загрузки")
         activityIndicator.startAnimating()
     }
     
     // MARK: - Показ индикатора загрузки
     
-    private func hideLoadingIndicator() {
-        activityIndicator.isHidden = true
+    func hideLoadingIndicator() {
+        print("Скрываю индиктор загрузки")
+        activityIndicator.stopAnimating()
     }
     
     private func showNetworkError(message: String) {
@@ -171,8 +169,9 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     
     func didLoadDataFromServer() {
-        activityIndicator.isHidden = true
+        showLoadingIndicator()
         questionFactory?.requestNextQuestion()
+        hideLoadingIndicator()
     }
 
     func didFailToLoadData(with error: Error) {

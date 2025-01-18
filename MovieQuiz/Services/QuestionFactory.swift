@@ -2,7 +2,7 @@ import Foundation
 
 final class QuestionFactory: QuestionFactoryProtocol {
     private let moviesLoader: MoviesLoading
-    weak var delegate: QuestionFactoryDelegate?
+    private weak var delegate: QuestionFactoryDelegate?
     private var movies: [MostPopularMovie] = []
     
     //    private let question: [QuizQuestion] = [
@@ -46,6 +46,10 @@ final class QuestionFactory: QuestionFactoryProtocol {
     
     func requestNextQuestion() {
         DispatchQueue.global().async { [weak self] in
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.delegate?.showLoadingIndicator()
+            }
             guard let self = self else { return }
             let index = (0..<self.movies.count).randomElement() ?? 0
             
@@ -71,6 +75,7 @@ final class QuestionFactory: QuestionFactoryProtocol {
             
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
+                self.delegate?.hideLoadingIndicator()
                 self.delegate?.didReceiveNextQuestion(question: question)
             }
         }
