@@ -1,0 +1,31 @@
+# Версия Swift
+--swiftversion 6.0
+
+# Отступы и форматирование кода
+--indent 4                     # Отступ в 4 пробела
+--xcodeindentation enabled    # Совместимость с Xcode
+--tabwidth 4                  # Ширина табуляции
+--maxwidth 140                # Максимальная ширина строки
+--smarttabs enabled          # Умные отступы
+
+# Правила переноса
+--wrapcollections before-first    # Перенос коллекций
+--wraparguments before-first      # Перенос аргументов
+--wrapparameters before-first     # Перенос параметров
+--closingparen balanced           # Расположение закрывающей скобки
+
+# Пробелы
+--trimwhitespace always           # Удаление лишних пробелов
+--ranges spaced                   # Пробелы в диапазонах
+--operatorfunc spaced            # Пробелы вокруг операторов
+
+# Базовые правила
+--allman false                   # Скобки на той же строке
+--indent 4                       # Базовый отступ
+--enable elseOnSameLine          # else на той же строке
+--enable spaceAroundBraces       # Пробелы вокруг скобок
+--enable spaceInsideBraces       # Пробелы внутри скобок
+
+# Организация кода
+--importgrouping alphabetized    # Сортировка импортов
+--header strip                   # Удаление заголовков
