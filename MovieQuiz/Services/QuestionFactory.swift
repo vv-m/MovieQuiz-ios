@@ -60,7 +60,12 @@ final class QuestionFactory: QuestionFactoryProtocol {
             do {
                 imageData = try Data(contentsOf: movie.resizedImageURL)
             } catch {
+                DispatchQueue.main.async { [weak self] in
+                    guard let self = self else { return }
+                    self.delegate?.didFailToLoadData(with: MostPopularMovie.LoadError.imageLoadError)
+                }
                 print("Failed to load image")
+                return
             }
             
             let rating = Float(movie.rating) ?? 0
