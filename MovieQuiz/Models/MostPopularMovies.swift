@@ -1,8 +1,29 @@
 import UIKit
 
 struct MostPopularMovies: Codable {
-    let errorMessage: String
+    let errorMessage: String?
     let items: [MostPopularMovie]
+    
+    enum IMDBError: LocalizedError {
+        case invalidApiKeyError
+        case expiredApiKeyError
+        case maximumRequestLimitApiKeyError
+        case unknownApiError
+        
+        var errorDescription: String? {
+                switch self {
+                case .invalidApiKeyError:
+                    return "Недействительный ключ API. Пожалуйста, проверьте ваш ключ."
+                case .expiredApiKeyError:
+                    return "Срок действия ключа API истек. Пожалуйста, обновите ваш ключ."
+                case .maximumRequestLimitApiKeyError:
+                    return "Достигнут максимальный лимит запросов. Попробуйте позже."
+                case .unknownApiError:
+                    return "Произошла неизвестная ошибка. Попробуйте позже."
+                }
+            }
+    }
+        
 }
 
 struct MostPopularMovie: Codable {

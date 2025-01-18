@@ -9,7 +9,7 @@ struct MoviesLoader: MoviesLoading {
     
     private var mostPopularMoviesUrl: URL {
         // Если мы не смогли преобразовать строку в URL, то приложение упадёт с ошибкой
-        guard let url = URL(string: "https://tv-api.com/en/API/Top250Movies/k_zcuw1ytf") else {
+        guard let url = URL(string: "https://tv-api.com/en/API/Top250Movies/k_zcuw1ytf123") else {
             preconditionFailure("Unable to construct mostPopularMoviesUrl")
         }
         return url
@@ -21,6 +21,18 @@ struct MoviesLoader: MoviesLoading {
             case .success(let data):
                 do {
                     let mostPopularMovies = try JSONDecoder().decode(MostPopularMovies.self, from: data)
+                    if let errorMessage = mostPopularMovies.errorMessage {
+                        switch errorMessage {
+                        case "Invalid API Key":
+                            handler(.failure(MostPopularMovies.IMDBError.invalidApiKeyError))
+                        case "API Key Expired":
+                            handler(.failure(MostPopularMovies.IMDBError.expiredApiKeyError))
+                        case "Maximum usage reached":
+                            handler(.failure(MostPopularMovies.IMDBError.maximumRequestLimitApiKeyError))
+                        default:
+                            handler(.failure(MostPopularMovies.IMDBError.unknownApiError))
+                        }
+                    }
                     handler(.success(mostPopularMovies))
                 } catch {
                     handler(.failure(error))
@@ -28,7 +40,6 @@ struct MoviesLoader: MoviesLoading {
             case .failure(let error):
                 handler(.failure(error))
             }
-            
         }
     }
 }
