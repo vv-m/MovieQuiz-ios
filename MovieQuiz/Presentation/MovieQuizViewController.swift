@@ -11,7 +11,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private let presenter: MovieQuizPresenter = MovieQuizPresenter()
     private var correctAnswers: Int = 0
     private var questionFactory: QuestionFactoryProtocol?
-    private var currentQuestion: QuizQuestion?
     private var alertPresenter: AlertDelegate?
     private var statisticService: StatisticServiceProtocol = StatisticService()
     
@@ -19,6 +18,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter.viewController = self
         activityIndicator.hidesWhenStopped = true
         activityIndicator.transform = CGAffineTransform(scaleX: 3.0, y: 3.0) // увеличить в 3 раза
         imageView.layer.cornerRadius = 20 // радиус скругления углов рамки
@@ -30,25 +30,17 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         questionFactory?.loadData()
     }
     
-    // MARK: - Нажатие на кнопки.
-    
-    @IBAction private func noButtonClicked(_: Any) {
+    @IBAction private func noButtonClicked(_ sender: UIButton) {
         setButton(state: false)
-        guard let currentQuestion else { return }
-        showAnswerResult(isCorrect: !currentQuestion.correctAnswer)
-        self.currentQuestion = currentQuestion
+        presenter.yesButtonClicked()
     }
     
-    @IBAction private func yesButtonClicked(_: Any) {
+    @IBAction private func yesButtonClicked(_ sender: UIButton) {
         setButton(state: false)
-        guard let currentQuestion else { return }
-        showAnswerResult(isCorrect: currentQuestion.correctAnswer)
-        self.currentQuestion = currentQuestion
+        presenter.yesButtonClicked()
     }
     
-    // MARK: - Включение и отключение кнопок "да" и "нет".
-    
-    private func setButton(state: Bool) {
+    func setButton(state: Bool) {
         noButton.isEnabled = state
         yesButton.isEnabled = state
     }
@@ -57,15 +49,13 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     func didReceiveNextQuestion(question: QuizQuestion?) {
         guard let question else { return }
-        currentQuestion = question
+        presenter.currentQuestion = question
         let viewModel = presenter.convert(model: question)
         DispatchQueue.main.async { [weak self] in
             self?.show(quiz: viewModel)
             self?.setButton(state: true)
         }
     }
-    
-
     
     // MARK: - Метод вывода на экран вопроса.
     
@@ -77,7 +67,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     
     // MARK: - Метод изменения цвета рамки.
     
-    private func showAnswerResult(isCorrect: Bool) {
+    func showAnswerResult(isCorrect: Bool) {
         imageView.layer.borderWidth = 8 // метод красит рамку
         
         if isCorrect {
@@ -165,7 +155,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         questionFactory?.requestNextQuestion()
         hideLoadingIndicator()
     }
-
+    
     func didFailToLoadData(with error: Error) {
         showNetworkError(message: error.localizedDescription)
     }
