@@ -8,9 +8,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBOutlet private var imageView: UIImageView!
     @IBOutlet private var counterLabel: UILabel!
     @IBOutlet private var activityIndicator: UIActivityIndicatorView!
-    private var currentQuestionIndex: Int = 0
+    private let presenter: MovieQuizPresenter = MovieQuizPresenter()
     private var correctAnswers: Int = 0
-    private var questionAmount: Int = Constants.amountQuestion
     private var questionFactory: QuestionFactoryProtocol?
     private var currentQuestion: QuizQuestion?
     private var alertPresenter: AlertDelegate?
@@ -59,22 +58,14 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     func didReceiveNextQuestion(question: QuizQuestion?) {
         guard let question else { return }
         currentQuestion = question
-        let viewModel = convert(model: question)
+        let viewModel = presenter.convert(model: question)
         DispatchQueue.main.async { [weak self] in
             self?.show(quiz: viewModel)
             self?.setButton(state: true)
         }
     }
     
-    // MARK: - Метод конвертации.
-    
-    private func convert(model: QuizQuestion) -> QuizStepViewModel {
-        return QuizStepViewModel(
-            image: UIImage(data: model.image) ?? UIImage(),
-            question: model.text,
-            questionNumber: "\(currentQuestionIndex + 1)/\(questionAmount)"
-        )
-    }
+
     
     // MARK: - Метод вывода на экран вопроса.
     
@@ -105,12 +96,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     // MARK: - Переход в один из сценариев.
     
     private func showNextQuestionOrResults() {
-        if currentQuestionIndex == questionAmount - 1 {
-            let gameResult = GameResult(correct: correctAnswers, total: questionAmount, date: Date())
+        if presenter.isLastQuestion() {
+            let gameResult = GameResult(correct: correctAnswers, total: presenter.questionAmount, date: Date())
             statisticService.store(gameResult)
             let text =
                 """
-                Ваш результат \(correctAnswers)/\(questionAmount)
+                Ваш результат \(correctAnswers)/\(presenter.questionAmount)
                 Количество сыгранных квизов: \(statisticService.gamesCount)
                 Рекорд: \(statisticService.bestGame.correct)/\(statisticService.bestGame.total) (\(
                     statisticService.bestGame.date
@@ -120,11 +111,12 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
                 """
             
             let alertData = AlertModel(
+                identifier: "Game results",
                 title: "Этот раунд окончен!",
                 message: text,
                 buttonText: "Сыграть еще раз",
                 completion: { [weak self] in
-                    self?.currentQuestionIndex = 0
+                    self?.presenter.resetQuestionIndex()
                     self?.correctAnswers = 0
                     self?.questionFactory?.requestNextQuestion()
                 }
@@ -132,7 +124,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             
             alertPresenter?.show(alertData: alertData)
         } else {
-            currentQuestionIndex += 1
+            presenter.swutchToTextQuestion()
             questionFactory?.requestNextQuestion()
         }
     }
@@ -153,12 +145,13 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         hideLoadingIndicator()
         
         let alertData = AlertModel(
+            identifier: "",
             title: "Ошибка",
             message: message,
             buttonText: "Попробовать еще раз") { [weak self] in
                 guard let self else { return }
                 
-                currentQuestionIndex = 0
+                presenter.resetQuestionIndex()
                 correctAnswers = 0
                 
                 questionFactory?.requestNextQuestion()

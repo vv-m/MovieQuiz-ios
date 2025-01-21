@@ -13,7 +13,9 @@ final class AlertPresenter: AlertDelegate {
             message: alertData.message, // текст во всплывающем окне
             preferredStyle: .alert
         )
-
+        
+        alert.view.accessibilityIdentifier = alertData.identifier
+        
         let action = UIAlertAction(title: alertData.buttonText, style: .default) { _ in
             alertData.completion()
         }
