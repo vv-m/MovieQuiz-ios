@@ -34,8 +34,9 @@ final class MovieQuizUITests: XCTestCase {
     
     func tapButton(nameButton: String, qtyTaps: Int) {
         for _ in 1...qtyTaps {
+            sleep(1)
             app.buttons[nameButton].tap()
-            sleep(2)
+            sleep(3)
         }
     }
     
@@ -68,12 +69,12 @@ final class MovieQuizUITests: XCTestCase {
         
         let secondLabeltextQuestion = app.staticTexts["IndexLabel"].label
         
-        XCTAssertEqual(firstLabeltextQuestion, "1/2")
-        XCTAssertEqual(secondLabeltextQuestion, "2/2")
+        XCTAssertEqual(firstLabeltextQuestion, "1/10")
+        XCTAssertEqual(secondLabeltextQuestion, "2/10")
     }
     
     func testResultAlert() throws {
-        tapButton(nameButton: "No", qtyTaps: 1)
+        tapButton(nameButton: "No", qtyTaps: 10)
         
         let alertResult = app.alerts["Game results"]
         

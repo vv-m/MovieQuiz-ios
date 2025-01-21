@@ -10,6 +10,7 @@ struct StubNetworkClient: NetworkRouting {
     let emulateError: Bool
     
     private var expectedResponse: Data {
+                // swiftlint:disable:next non_optional_string_data_conversion
                 """
                 {
                    "errorMessage" : "",
@@ -50,8 +51,6 @@ struct StubNetworkClient: NetworkRouting {
             handler(.success(expectedResponse))
         }
     }
-    
-    
 }
 
 class MoviesLoaderTests: XCTestCase {
@@ -91,7 +90,7 @@ class MoviesLoaderTests: XCTestCase {
             case .failure(let error):
                 XCTAssertNotNil(error)
                 expectation.fulfill()
-            case .success(_):
+            case .success(_): // swiftlint:disable:this empty_enum_arguments
                 XCTFail("Unexpected failure")
             }
         }
